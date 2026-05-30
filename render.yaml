@@ -2,23 +2,17 @@ services:
   - type: web
     name: mathkarati-pro
     env: python
-    plan: free
     buildCommand: chmod +x build.sh && bash build.sh
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --timeout 180 --keep-alive 5 --preload --access-logfile - --error-logfile -
-    healthCheckPath: /ping
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --timeout 180 --keep-alive 5
     envVars:
       - key: PORT
         value: 10000
+      - key: ADMIN_PASSWORD_HASH
+        generateValue: false
+        value: "CHANGE_ME_sha256_of_your_password"
       - key: SECRET_KEY
         generateValue: true
-      - key: ADMIN_PASSWORD_HASH
-        sync: false
-        comment: "sha256 of your admin password — generate: echo -n 'yourpassword' | sha256sum"
       - key: STORAGE_DIR
         value: /opt/render/project/src/storage
       - key: DB_PATH
         value: /opt/render/project/src/mathkarati_payments.db
-      - key: PYTHONUNBUFFERED
-        value: "1"
-      - key: PYTHONDONTWRITEBYTECODE
-        value: "1"

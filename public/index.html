@@ -223,43 +223,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .bnew{display:block;margin:7px auto 0;padding:7px 18px;border-radius:var(--r);border:1.5px solid var(--bd);background:transparent;color:var(--muted);font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s}
 .bnew:hover{border-color:var(--gold);color:var(--gold)}
 .fallback-note{margin:10px 0 2px;padding:8px 12px;background:rgba(255,180,0,.12);border:1px solid rgba(255,180,0,.3);border-radius:7px;font-size:11px;color:#e8c060;text-align:center}
-/* ── First-slide preview overlay ─────────────────────────────── */
-.slide-prev-ov{position:fixed;inset:0;background:rgba(7,23,47,.9);backdrop-filter:blur(18px);display:none;align-items:center;justify-content:center;z-index:2500;padding:16px}
-.slide-prev-ov.open{display:flex}
-.slide-prev-box{background:#fff;border-radius:22px;width:100%;max-width:480px;overflow:hidden;box-shadow:0 30px 80px rgba(7,23,47,.45);animation:min .25s ease}
-.sp-head{background:linear-gradient(135deg,var(--navy),#152d58);padding:18px 22px 14px;text-align:center}
-.sp-head h3{color:#fff;font-size:16px;font-weight:800;margin:0 0 3px}
-.sp-head p{color:rgba(255,255,255,.6);font-size:11px;margin:0}
-.sp-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(198,160,60,.22);border:1px solid rgba(198,160,60,.4);border-radius:99px;padding:3px 10px;font-size:10px;color:var(--gold-l);margin-top:6px}
-.sp-img-wrap{background:#0d1a2e;padding:14px;text-align:center;min-height:200px;display:flex;align-items:center;justify-content:center;position:relative}
-.sp-img-wrap img{max-width:100%;max-height:260px;border-radius:8px;display:block;margin:0 auto;box-shadow:0 8px 28px rgba(0,0,0,.4)}
-.sp-img-wrap .sp-wm{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.sp-img-wrap .sp-wm span{font-size:22px;font-weight:900;color:rgba(255,255,255,.08);transform:rotate(-25deg);letter-spacing:4px;text-transform:uppercase}
-.sp-loading{padding:40px 0;text-align:center;color:rgba(255,255,255,.5);font-size:13px}
-/* ── PPTX Download Preview Zone ── */
-.sp-dl-zone{background:#0d1a2e;padding:28px 22px;text-align:center;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
-.sp-dl-icon{font-size:52px;margin-bottom:4px}
-.sp-dl-title{color:#fff;font-size:15px;font-weight:800;margin:0}
-.sp-dl-sub{color:rgba(255,255,255,.55);font-size:11px;margin:0;max-width:300px;line-height:1.5}
-.sp-dl-btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,#10B981,#059669);color:#fff;font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;margin-top:4px;transition:all .2s;box-shadow:0 6px 20px rgba(16,185,129,.35)}
-.sp-dl-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(16,185,129,.45)}
-.sp-dl-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.sp-dl-note{color:rgba(255,255,255,.3);font-size:10px;margin:0}
-.sp-foot{padding:18px 22px;border-top:1px solid var(--bd)}
-.sp-info{background:rgba(198,160,60,.07);border:1px solid rgba(198,160,60,.18);border-radius:10px;padding:12px 14px;font-size:11px;color:var(--navy);margin-bottom:14px;text-align:center}
-.sp-info strong{color:var(--navy);font-size:13px}
-.sp-btns{display:flex;gap:10px}
-.sp-btn-confirm{flex:1;padding:13px;border-radius:11px;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:var(--navy);font-family:inherit;font-size:14px;font-weight:900;border:none;cursor:pointer;transition:all .2s}
-.sp-btn-confirm:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(198,160,60,.4)}
-.sp-btn-cancel{padding:13px 16px;border-radius:11px;border:1.5px solid var(--bd);background:transparent;color:var(--muted);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
-/* ── Pending order banner ─────────────────────────────────────── */
-.pending-banner{background:linear-gradient(135deg,#0f2744,#1a3a6b);border:1.5px solid rgba(198,160,60,.35);border-radius:16px;padding:20px 22px;margin:18px 0;text-align:center;animation:fu .4s ease}
-.pending-banner h3{color:var(--gold-l);font-size:15px;font-weight:800;margin:0 0 6px}
-.pending-banner p{color:rgba(255,255,255,.65);font-size:12px;margin:0 0 14px}
-.pb-order{font-family:monospace;font-size:13px;color:rgba(255,255,255,.45);margin-bottom:14px}
-.pb-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.pb-code-btn{padding:11px 22px;border-radius:10px;background:linear-gradient(135deg,var(--gold),var(--gold-l));color:var(--navy);font-family:inherit;font-size:13px;font-weight:800;border:none;cursor:pointer;transition:all .2s}
-.pb-new-btn{padding:11px 18px;border-radius:10px;border:1.5px solid rgba(255,255,255,.2);background:transparent;color:rgba(255,255,255,.65);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s}
 
 /* ══ PAYMENT OVERLAY ══ */
 .pay-ov{position:fixed;inset:0;background:rgba(7,23,47,.82);backdrop-filter:blur(14px);display:none;align-items:center;justify-content:center;z-index:2000;padding:16px}
@@ -329,9 +292,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .code-err{color:var(--err);font-size:12px;margin-bottom:10px;display:none}
 .code-close-btn{background:none;border:1.5px solid var(--bd);border-radius:9px;padding:7px 20px;font-size:12px;color:var(--muted);cursor:pointer;font-family:inherit;margin-top:8px}
 
-
-@media(max-width:900px){
-  .mpick{grid-template-columns:1fr 1fr}}
+/* Preview lock banner */
 /* ── Preview Lock Banner ─────────────────────────────────── */
 .preview-lock{background:linear-gradient(135deg,var(--navy),#152d58);border-radius:14px;padding:18px 20px;margin:16px 0;display:flex;align-items:center;gap:14px;position:relative;overflow:hidden;flex-wrap:wrap}
 .preview-lock::before{content:'';position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(198,160,60,.18),transparent 70%);pointer-events:none}
@@ -344,24 +305,57 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .pl-code-btn{padding:7px 16px;border-radius:9px;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.8);font-family:inherit;font-size:11px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .2s}
 .pl-code-btn:hover{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.07)}
 
-/* ── Sample Slides Gallery ───────────────────────────────── */
-.samples-section{margin:28px 0 10px}
-.samples-section h2{font-size:16px;font-weight:800;color:var(--gold);margin-bottom:4px;text-align:center}
-.samples-section .samples-sub{font-size:12px;color:rgba(255,255,255,.5);text-align:center;margin-bottom:18px}
-.engine-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
-.engine-tab{padding:8px 16px;border-radius:20px;border:1.5px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.6);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .22s}
-.engine-tab.active{background:var(--gold);border-color:var(--gold);color:var(--navy)}
-.engine-tab:hover:not(.active){border-color:rgba(255,255,255,.35);color:#fff}
-.engine-panels{position:relative}
-.engine-panel{display:none}
-.engine-panel.active{display:block}
-.slides-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-@media(max-width:600px){.slides-grid{grid-template-columns:1fr}}
-.slide-thumb{border-radius:10px;overflow:hidden;border:1.5px solid rgba(255,255,255,.08);box-shadow:0 6px 22px rgba(0,0,0,.4);aspect-ratio:16/9;position:relative}
-.slide-thumb svg{width:100%;height:100%;display:block}
-.slide-thumb-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:6px 9px;font-size:10px;color:rgba(255,255,255,.75);font-family:'Cairo',sans-serif;font-weight:600}
-.engine-badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:10px;font-weight:700;margin-bottom:10px}
+/* ── Pro Slide Viewer ────────────────────────────────────── */
+.psv-wrap{background:#0d0d1a;border-radius:16px;overflow:hidden;margin-top:14px;box-shadow:0 12px 48px rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.06)}
 
+/* Stage & Viewer */
+.psv-stage{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;background:#0a0a18;display:flex;align-items:center;justify-content:center;cursor:grab}
+.psv-stage:active{cursor:grabbing}
+.psv-stage.zoom-active{cursor:zoom-out}
+.psv-slide-img{width:100%;height:100%;object-fit:contain;display:none;user-select:none;-webkit-user-select:none;pointer-events:none;transition:opacity .22s ease}
+.psv-slide-img.active{display:block;animation:slideIn .25s ease}
+@keyframes slideIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+
+/* Watermark overlay (CSS layer for extra protection) */
+.psv-wm{position:absolute;inset:0;pointer-events:none;z-index:12;overflow:hidden;display:flex;flex-direction:column;justify-content:space-around;align-items:center;gap:0}
+.psv-wm-row{display:flex;gap:0;white-space:nowrap;transform:rotate(-28deg);width:200%}
+.psv-wm-text{font-size:clamp(11px,1.8vw,22px);font-weight:900;color:rgba(255,255,255,0.09);letter-spacing:2px;font-family:'Cairo',sans-serif;white-space:nowrap;padding:0 40px;user-select:none}
+
+/* Loading overlay */
+.psv-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:20;background:#0a0a18}
+.psv-spinner{width:44px;height:44px;border:3px solid rgba(198,160,60,.15);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.psv-loading-txt{font-size:13px;color:rgba(255,255,255,.55);font-family:'Cairo',sans-serif}
+.psv-loading-sub{font-size:11px;color:rgba(255,255,255,.3);font-family:'Cairo',sans-serif}
+.psv-progress-bar{width:140px;height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;margin-top:4px}
+.psv-progress-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s ease;width:0%}
+
+/* Prev/Next arrows */
+.psv-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:15;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.12);border-radius:10px;color:rgba(255,255,255,.9);font-size:18px;width:38px;height:52px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;backdrop-filter:blur(6px)}
+.psv-arrow:hover{background:rgba(198,160,60,.6);border-color:rgba(198,160,60,.7)}
+.psv-arrow:disabled{opacity:.2;cursor:not-allowed;pointer-events:none}
+.psv-arrow-prev{right:10px}
+.psv-arrow-next{left:10px}
+
+/* Toolbar */
+.psv-toolbar{display:flex;align-items:center;gap:8px;padding:9px 14px;background:rgba(255,255,255,.04);border-top:1px solid rgba(255,255,255,.07)}
+.psv-counter{font-size:12px;color:rgba(255,255,255,.6);font-family:'Cairo',sans-serif;font-weight:600;flex:1;text-align:center}
+.psv-dots{display:flex;gap:5px;align-items:center;justify-content:center;flex:1;overflow:hidden;max-width:240px;flex-wrap:nowrap}
+.psv-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:all .2s;flex-shrink:0}
+.psv-dot.active{background:var(--gold);transform:scale(1.35)}
+.psv-dot:hover:not(.active){background:rgba(255,255,255,.45)}
+.psv-fullscreen-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:7px;color:rgba(255,255,255,.7);padding:5px 9px;font-size:12px;cursor:pointer;font-family:inherit;transition:all .2s;white-space:nowrap}
+.psv-fullscreen-btn:hover{background:rgba(255,255,255,.16);color:#fff}
+
+/* Slide count badge */
+.psv-badge{position:absolute;top:10px;left:10px;z-index:16;background:rgba(0,0,0,.65);border:1px solid rgba(198,160,60,.4);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--gold-l);font-family:'Cairo',sans-serif;font-weight:700;backdrop-filter:blur(4px)}
+
+/* Security overlay (prevents right-click save context) */
+.psv-sec-overlay{position:absolute;inset:0;z-index:11;background:transparent}
+
+
+@media(max-width:900px){
+  .mpick{grid-template-columns:1fr 1fr}}
 @media(max-width:660px){
   .mpick,.cpick.classic-colors{grid-template-columns:1fr}
   .cpick.premium-colors{grid-template-columns:1fr}
@@ -841,70 +835,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <div class="color-preview" id="color-preview"></div>
   </div>
 
-
-  <!-- ════════════════════════════════════════════════════════════ -->
-  <!-- قسم الصور النموذجية — ثابتة لا تتغير مع بيانات الطالب -->
-  <!-- ════════════════════════════════════════════════════════════ -->
-  <div class="card samples-section">
-    <div class="ch"><div class="ci">🖼️</div><h3>معاينة نماذج العروض</h3></div>
-    <p class="samples-sub">شرائح نموذجية ثابتة — هذا هو المستوى الحقيقي للعروض المنتجة</p>
-    <div class="engine-tabs">
-      <button class="engine-tab active" onclick="showEnginePanel('canva',this)">✨ Canva Level</button>
-      <button class="engine-tab" onclick="showEnginePanel('premium',this)">💎 Premium v3</button>
-      <button class="engine-tab" onclick="showEnginePanel('classic',this)">📐 Classic Academic</button>
-    </div>
-
-    <style>
-    .sd-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .sd-item{display:flex;flex-direction:column;gap:5px}
-    .sd-lbl{text-align:center;font-size:11px;color:rgba(255,255,255,.6)}
-    .sd-frame{width:100%;aspect-ratio:16/9;border:none;border-radius:8px;overflow:hidden;display:block;box-shadow:0 6px 24px rgba(0,0,0,.6)}
-    </style>
-
-    <div class="engine-panel active" id="ep-canva">
-      <p style="font-size:11px;color:rgba(255,255,255,.5);text-align:center;margin-bottom:10px">⚙️ python-pptx · زوايا دائرية · تدرجات · ظلال</p>
-      <div class="sd-grid">
-        <div class="sd-item">
-          <iframe class="sd-frame" src="slides/canva-stats.html" scrolling="no"></iframe>
-          <div class="sd-lbl">الأرقام الإحصائية · NOIR ذهبي</div>
-        </div>
-        <div class="sd-item">
-          <iframe class="sd-frame" src="slides/canva-obj.html" scrolling="no"></iframe>
-          <div class="sd-lbl">الأهداف والفرضيات · VIVID تيل</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="engine-panel" id="ep-premium">
-      <p style="font-size:11px;color:rgba(255,255,255,.5);text-align:center;margin-bottom:10px">⚙️ PptxGenJS · شريط جانبي 36% · أيقونة مضيئة</p>
-      <div class="sd-grid">
-        <div class="sd-item">
-          <iframe class="sd-frame" src="slides/premium-stats.html" scrolling="no"></iframe>
-          <div class="sd-lbl">الأرقام · Atlas Corporate</div>
-        </div>
-        <div class="sd-item">
-          <iframe class="sd-frame" src="slides/premium-results.html" scrolling="no"></iframe>
-          <div class="sd-lbl">النتائج · Noir Académique</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="engine-panel" id="ep-classic">
-      <p style="font-size:11px;color:rgba(255,255,255,.5);text-align:center;margin-bottom:10px">⚙️ python-pptx · هيدر ثقيل · صفوف متناوبة</p>
-      <div class="sd-grid">
-        <div class="sd-item">
-          <iframe class="sd-frame" src="slides/classic-plan.html" scrolling="no"></iframe>
-          <div class="sd-lbl">خطة البحث · navy_gold</div>
-        </div>
-        <div class="sd-item">
-          <iframe class="sd-frame" src="slides/classic-conc.html" scrolling="no"></iframe>
-          <div class="sd-lbl">الخاتمة · dark_teal</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
   <div class="garea">
     <button class="bgen" id="bgen" onclick="generate()"><span data-i18n="generate_btn">🚀 إنشاء العرض</span></button>
     <div class="ghint" data-i18n="generating_hint">⚡ يستغرق التوليد 10–40 ثانية</div>
@@ -928,37 +858,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div>
 
 <!-- ══ PAYMENT OVERLAY ══ -->
-<!-- ══ First-Slide Preview Overlay ══ -->
-<div class="slide-prev-ov" id="slidePrevOv">
-  <div class="slide-prev-box">
-    <div class="sp-head">
-      <h3>🎓 معاينة العرض</h3>
-      <p>الشريحة الأولى من مذكرتك بجودة حقيقية</p>
-      <div class="sp-badge"><span>🔒</span> معاينة — الملف الكامل بعد الدفع</div>
-    </div>
-    <!-- منطقة المعاينة: تحميل PPTX حقيقي -->
-    <div class="sp-dl-zone" id="spDlZone">
-      <div class="sp-dl-icon">📊</div>
-      <p class="sp-dl-title">جاهز للمعاينة الحقيقية!</p>
-      <p class="sp-dl-sub">حمّل ملف PowerPoint للشريحة الأولى فقط وشاهد جودة العرض بنفسك</p>
-      <button class="sp-dl-btn" id="spDlBtn" onclick="downloadPreviewSlide()">
-        ⬇️ تحميل معاينة الشريحة الأولى (.pptx)
-      </button>
-      <p class="sp-dl-note">ملف مجاني — يحتوي على الشريحة الأولى فقط مع علامة مائية</p>
-    </div>
-    <div class="sp-foot">
-      <div class="sp-info">
-        <strong>✅ تم إنشاء عرضك بنجاح!</strong><br>
-        للحصول على الملف الكامل القابل للتعديل — <strong>800 دج فقط</strong>
-      </div>
-      <div class="sp-btns">
-        <button class="sp-btn-cancel" onclick="closeSlidePrev()">← تعديل</button>
-        <button class="sp-btn-confirm" onclick="confirmAndPay()">💳 موافق — انتقل للدفع</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <div class="pay-ov" id="payOv">
   <div class="pay-box">
     <div class="pay-head" style="position:relative">
@@ -1973,16 +1872,9 @@ async function generate(){
     const isFallback = false; // v17: single unified engine, no fallbacks
     // تحويل base64 → Blob (للمعاينة فقط — ملف PPTX الحقيقي على الخادم)
     setP(100,t('modal_ok'));await sl(300);
-    // v22: عرض الشريحة الأولى للموافقة قبل الانتقال للدفع
+    // v20: لا نستقبل json.data (PPTX) هنا — الملف الحقيقي على السيرفر فقط
+    showOk(null,d.studentName,false,json.filename,json.presentation_id,json.degree||d.degree||'licence',json.title_ar||d.titleAr||'',json.preview_slides||[],json.preview_token||'');
     localStorage.removeItem('mp_v4');
-    _currentPresId = json.presentation_id;
-    _currentFilename = json.filename || 'presentation.pptx';
-    _currentStudentName = d.studentName;
-    _currentDegree = d.degree || 'licence';
-    _currentTitleAr = d.titleAr || '';
-    closeM();
-    // عرض الشريحة الأولى من المعاينة
-    openSlidePrev(json.preview_slides);
   }catch(e){
     clearTimeout(_timeoutId);
     _progStop=true;
@@ -2022,83 +1914,36 @@ function cancelGen(){
 }
 function setP(p,m){document.getElementById('pfill').style.width=p+'%';document.getElementById('plbl').textContent=m||p+'%';}
 // ══ PAYMENT STATE ══
-let _currentPresId      = null;
-let _currentFilename    = 'presentation.pptx';
-let _currentStudentName = '';
-let _currentDegree      = 'licence';
-let _currentTitleAr     = '';
-let _currentOrderId     = null;
-let _selectedMethod     = null;
-let _receiptFile        = null;
+let _currentPresId = null;
 // ══════════════════════════════════════════════════════════════
+// v20 — نظام المعاينة الاحترافية (Pro Slide Viewer)
+// الملف الحقيقي لا يُرسل للمتصفح إطلاقاً — صور WebP فقط
+// ══════════════════════════════════════════════════════════════
+let _currentStudentName = null;
+let _currentDegree = null;
+let _currentTitleAr = null;
+let _currentOrderId = null;
+let _selectedMethod = null;
+let _receiptFile = null;
 
-// ══ FIRST-SLIDE PREVIEW ══════════════════════════════════════
-function openSlidePrev(previewSlides){
-  // v22+: نعرض زر تحميل PPTX حقيقي بدل الصورة المشوهة
-  const ov = document.getElementById('slidePrevOv');
-  // إعادة تهيئة زر التحميل
-  const btn = document.getElementById('spDlBtn');
-  if(btn){
-    btn.disabled = false;
-    btn.textContent = '⬇️ تحميل معاينة الشريحة الأولى (.pptx)';
-  }
-  ov.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
+// ── حالة نظام المعاينة ──────────────────────────────────────
+const PSV = {
+  slides: [],
+  idx: 0,
+  token: '',
+  loaded: new Set(),
+};
 
-async function downloadPreviewSlide(){
-  if(!_currentPresId) return;
-  const btn = document.getElementById('spDlBtn');
-  if(btn){ btn.disabled = true; btn.textContent = '⏳ جاري التحضير...'; }
-  try{
-    const resp = await fetch(`/preview-slide/${_currentPresId}`);
-    const data = await resp.json();
-    if(!data.ok) throw new Error(data.error || 'فشل تحميل المعاينة');
-    // نفس منطق redeem: base64 → Blob → تحميل
-    const raw = atob(data.data);
-    const bytes = new Uint8Array(raw.length);
-    for(let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
-    const blob = new Blob([bytes], {
-      type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'preview-mathkarati.pptx';
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(() => { URL.revokeObjectURL(url); a.remove(); }, 5000);
-    if(btn){ btn.disabled = false; btn.textContent = '⬇️ تحميل مجدداً'; }
-  }catch(e){
-    alert('❌ ' + e.message);
-    if(btn){ btn.disabled = false; btn.textContent = '⬇️ تحميل معاينة الشريحة الأولى (.pptx)'; }
-  }
-}
-
-function closeSlidePrev(){
-  document.getElementById('slidePrevOv').classList.remove('open');
-  document.body.style.overflow = '';
-  // إظهار البانر للعودة إذا أغلق بدون موافقة
-  _showResultBanner();
-}
-
-function confirmAndPay(){
-  document.getElementById('slidePrevOv').classList.remove('open');
-  document.body.style.overflow = '';
-  openPayOv();
-}
-
-function _showResultBanner(){
-  let existingBanner = document.getElementById('resultBanner');
-  if(existingBanner) return; // موجود بالفعل
-  const banner = document.createElement('div');
-  banner.id = 'resultBanner';
-  banner.style.cssText = 'margin-top:20px;animation:fu .3s ease';
-  banner.innerHTML = `
+function _buildViewerHTML(slideCount) {
+  const wm = 'مذكرتي Pro — معاينة فقط &nbsp;&nbsp; ';
+  const wmRow = `<div class="psv-wm-row">${wm.repeat(12)}</div>`;
+  const wmRows = wmRow.repeat(5);
+  const sc = slideCount ? slideCount : '...';
+  return `
     <div class="preview-lock">
-      <div class="pl-icon">✅</div>
+      <div class="pl-icon">🔒</div>
       <div class="pl-text">
-        <h4>العرض جاهز!</h4>
+        <h4>العرض الحقيقي — محمي حتى الدفع</h4>
         <p>أدِّ 800 دج للحصول على ملف PPTX الكامل القابل للتعديل</p>
       </div>
       <div class="pl-actions">
@@ -2106,22 +1951,166 @@ function _showResultBanner(){
         <button class="pl-code-btn" onclick="openCodeOv()">🔑 عندي كود</button>
       </div>
     </div>
-    <button class="bnew" style="margin-top:10px" onclick="if(confirm('سيتم حذف العرض الحالي وإنشاء عرض جديد.')){localStorage.removeItem('mp_v4');localStorage.removeItem('mp_order');location.reload()}">🔄 إنشاء عرض جديد</button>`;
+    <div class="psv-wrap" id="psvWrap">
+      <div class="psv-loading" id="psvLoading">
+        <div class="psv-spinner"></div>
+        <div class="psv-loading-txt">جاري تحميل المعاينة الحقيقية...</div>
+        <div class="psv-loading-sub">يُعرض التصميم الفعلي للشرائح</div>
+        <div class="psv-progress-bar"><div class="psv-progress-fill" id="psvProgressFill"></div></div>
+      </div>
+      <div class="psv-stage" id="psvStage" oncontextmenu="return false" ondragstart="return false" ondrop="return false">
+        <div class="psv-sec-overlay" oncontextmenu="return false" ondragstart="return false"></div>
+        <div class="psv-badge" id="psvBadge" style="display:none">📊 <span id="psvSlideCount">${sc}</span> شريحة</div>
+        <div class="psv-wm" aria-hidden="true">${wmRows}</div>
+        <img id="psvImg" class="psv-slide-img" alt="معاينة الشريحة" draggable="false" oncontextmenu="return false" ondragstart="return false">
+        <button class="psv-arrow psv-arrow-prev" id="psvPrev" onclick="psvGo(PSV.idx-1)" title="السابقة" disabled>›</button>
+        <button class="psv-arrow psv-arrow-next" id="psvNext" onclick="psvGo(PSV.idx+1)" title="التالية" disabled>‹</button>
+      </div>
+      <div class="psv-toolbar">
+        <span class="psv-counter" id="psvCounter">جاري التحميل...</span>
+        <div class="psv-dots" id="psvDots"></div>
+        <button class="psv-fullscreen-btn" onclick="psvFullscreen()">⛶ ملء الشاشة</button>
+      </div>
+    </div>
+    <button class="bnew" style="margin-top:10px" onclick="if(confirm('سيتم حذف العرض الحالي وإنشاء عرض جديد.')){localStorage.removeItem('mp_v4');location.reload()}">🔄 إنشاء عرض جديد</button>`;
+}
+
+function showOk(b64Data_IGNORED, name, isFallback, serverFilename, presId, degree, titleAr, inlineSlides, previewToken) {
+  _currentPresId = presId;
+  _currentFilename = serverFilename || 'presentation.pptx';
+  _currentStudentName = name;
+  _currentDegree = degree || 'licence';
+  _currentTitleAr = titleAr || '';
+  PSV.slides = []; PSV.idx = 0; PSV.token = previewToken || ''; PSV.loaded.clear();
+  closeM();
+  let existing = document.getElementById('resultBanner');
+  if (existing) existing.remove();
+  const banner = document.createElement('div');
+  banner.id = 'resultBanner';
+  banner.style.cssText = 'margin-top:20px;animation:fu .3s ease';
+  banner.innerHTML = _buildViewerHTML(inlineSlides ? inlineSlides.length : null);
   const bgen = document.getElementById('bgen');
-  if(bgen && bgen.parentNode) bgen.parentNode.insertBefore(banner, bgen.nextSibling);
+  if (bgen && bgen.parentNode) bgen.parentNode.insertBefore(banner, bgen.nextSibling);
   else document.querySelector('.main').appendChild(banner);
-  setTimeout(() => banner.scrollIntoView({ behavior:'smooth', block:'center' }), 150);
+  setTimeout(() => banner.scrollIntoView({ behavior: 'smooth', block: 'center' }), 150);
+  if (inlineSlides && inlineSlides.length) {
+    psvLoadSlides(inlineSlides);
+  } else {
+    psvPollPreview(presId, previewToken, 0);
+  }
 }
-// ══════════════════════════════════════════════════════════════
 
-
-function showEnginePanel(name, btn) {
-  document.querySelectorAll('.engine-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.engine-tab').forEach(b => b.classList.remove('active'));
-  const panel = document.getElementById('ep-' + name);
-  if (panel) panel.classList.add('active');
-  if (btn) btn.classList.add('active');
+function psvLoadSlides(slides) {
+  PSV.slides = slides;
+  const dotsEl = document.getElementById('psvDots');
+  if (dotsEl) {
+    const maxDots = Math.min(slides.length, 18);
+    dotsEl.innerHTML = Array.from({length: maxDots}, (_, i) =>
+      `<div class="psv-dot${i===0?' active':''}" onclick="psvGo(${i})" title="شريحة ${i+1}"></div>`
+    ).join('');
+  }
+  const badge = document.getElementById('psvBadge');
+  const countEl = document.getElementById('psvSlideCount');
+  if (badge) badge.style.display = 'block';
+  if (countEl) countEl.textContent = slides.length;
+  const loading = document.getElementById('psvLoading');
+  if (loading) { loading.style.opacity='0'; setTimeout(()=>{ if(loading) loading.style.display='none'; },300); }
+  psvGo(0);
+  const next = document.getElementById('psvNext');
+  if (next) next.disabled = slides.length <= 1;
+  _psvPreloadNext(0);
 }
+
+function psvGo(idx) {
+  if (!PSV.slides.length) return;
+  idx = Math.max(0, Math.min(idx, PSV.slides.length - 1));
+  PSV.idx = idx;
+  const img = document.getElementById('psvImg');
+  if (img) {
+    img.classList.remove('active');
+    const b64 = PSV.slides[idx];
+    const mime = (b64.startsWith('/9j/') || b64.startsWith('iVBOR')) ? 'jpeg' : 'webp';
+    void img.offsetWidth;
+    img.src = 'data:image/' + mime + ';base64,' + b64;
+    img.classList.add('active');
+    PSV.loaded.add(idx);
+  }
+  const dots = document.querySelectorAll('.psv-dot');
+  const maxDots = Math.min(PSV.slides.length, 18);
+  const di = Math.floor(idx / PSV.slides.length * maxDots);
+  dots.forEach((d, i) => d.classList.toggle('active', i === Math.min(di, maxDots-1)));
+  const ctr = document.getElementById('psvCounter');
+  if (ctr) ctr.textContent = 'الشريحة ' + (idx+1) + ' من ' + PSV.slides.length;
+  const prev = document.getElementById('psvPrev');
+  const next = document.getElementById('psvNext');
+  if (prev) prev.disabled = idx <= 0;
+  if (next) next.disabled = idx >= PSV.slides.length - 1;
+  _psvPreloadNext(idx);
+}
+
+function _psvPreloadNext(i) {
+  [i+1, i+2].forEach(n => {
+    if (n < PSV.slides.length && !PSV.loaded.has(n)) {
+      const pi = new Image();
+      const b64 = PSV.slides[n];
+      const mime = (b64.startsWith('/9j/') || b64.startsWith('iVBOR')) ? 'jpeg' : 'webp';
+      pi.src = 'data:image/' + mime + ';base64,' + b64;
+      PSV.loaded.add(n);
+    }
+  });
+}
+
+async function psvPollPreview(presId, token, attempt) {
+  const MAX = 20, RETRY_MS = 2500;
+  const progress = document.getElementById('psvProgressFill');
+  if (progress) progress.style.width = Math.min(90, attempt * 5) + '%';
+  try {
+    const r = await fetch('/preview/' + presId);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const j = await r.json();
+    if (j.slides && j.slides.length) {
+      if (progress) progress.style.width = '100%';
+      if (j.preview_token) PSV.token = j.preview_token;
+      psvLoadSlides(j.slides);
+    } else if (attempt < MAX) {
+      setTimeout(() => psvPollPreview(presId, token, attempt+1), RETRY_MS);
+    } else {
+      const loading = document.getElementById('psvLoading');
+      if (loading) loading.innerHTML = `<div style="font-size:28px">⚠️</div><div style="font-size:13px;color:rgba(255,200,100,.8);margin-top:8px">تعذّر تحميل المعاينة</div><button onclick="psvPollPreview('${presId}','${token}',0)" style="margin-top:12px;padding:7px 16px;background:var(--gold);border:none;border-radius:8px;color:var(--navy);font-weight:700;cursor:pointer;font-family:inherit">إعادة المحاولة</button>`;
+    }
+  } catch(e) {
+    if (attempt < MAX) setTimeout(() => psvPollPreview(presId, token, attempt+1), RETRY_MS);
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (!PSV.slides.length) return;
+  if (e.key === 'ArrowLeft') psvGo(PSV.idx + 1);
+  if (e.key === 'ArrowRight') psvGo(PSV.idx - 1);
+});
+
+function psvFullscreen() {
+  const wrap = document.getElementById('psvWrap');
+  if (!wrap) return;
+  if (!document.fullscreenElement) { wrap.requestFullscreen && wrap.requestFullscreen(); }
+  else { document.exitFullscreen && document.exitFullscreen(); }
+}
+
+(function initSwipe() {
+  let sx = 0;
+  document.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', (e) => {
+    if (!PSV.slides.length) return;
+    const dx = sx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 50) { dx > 0 ? psvGo(PSV.idx+1) : psvGo(PSV.idx-1); }
+  }, {passive:true});
+})();
+
+function renderPptxPreview() {}
+function pptxNext() { psvGo(PSV.idx+1); }
+function pptxPrev() { psvGo(PSV.idx-1); }
+function previewNext() { psvGo(PSV.idx+1); }
+function previewPrev() { psvGo(PSV.idx-1); }
 
 // ══ PAYMENT OVERLAY ══
 const CCP_INFO=`<div class="pi-row"><span class="pi-label">رقم الحساب CCP</span><span class="pi-val">000 12345678</span></div><div class="pi-row"><span class="pi-label">المفتاح / Clé</span><span class="pi-val">67</span></div><div class="pi-row"><span class="pi-label">اسم المستفيد</span><span class="pi-val">مذكرتي Pro</span></div><div class="pi-row"><span class="pi-label">المبلغ</span><span class="pi-val">800 دج</span></div>`;
@@ -2129,21 +2118,6 @@ const BARID_INFO=`<div class="pi-row"><span class="pi-label">رقم BaridiMob</s
 
 function openPayOv(){
   if(!_currentPresId){alert('يجب إنشاء العرض أولاً');return;}
-  // إعادة تهيئة كاملة للخطوات
-  document.getElementById('payStep1').style.display='';
-  document.getElementById('payStep2').style.display='none';
-  document.getElementById('payStep3').style.display='none';
-  document.getElementById('ps1').className='ps-step act';
-  document.getElementById('ps2').className='ps-step';
-  document.getElementById('ps3').className='ps-step';
-  _selectedMethod=null;
-  _receiptFile=null;
-  const rf=document.getElementById('receiptFile'); if(rf) rf.value='';
-  document.getElementById('uploadPreview').style.display='none';
-  document.querySelectorAll('.pm-card').forEach(c=>c.classList.remove('sel'));
-  document.getElementById('payInfoBox').style.display='none';
-  const submitBtn=document.getElementById('paySubmitBtn');
-  if(submitBtn){submitBtn.disabled=false;submitBtn.textContent='📤 إرسال الطلب';}
   document.getElementById('payOv').classList.add('open');
   document.body.style.overflow='hidden';
   const n=document.getElementById('pay-name');
@@ -2151,16 +2125,7 @@ function openPayOv(){
 }
 function closePayOv(){document.getElementById('payOv').classList.remove('open');document.body.style.overflow='';}
 function openCodeOv(){document.getElementById('codeOv').classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>document.getElementById('codeInput').focus(),100);}
-function closeCodeOv(){
-  document.getElementById('codeOv').classList.remove('open');
-  document.body.style.overflow='';
-  // إعادة تهيئة النموذج
-  document.getElementById('codeInput').value='';
-  document.getElementById('codeErr').style.display='none';
-  document.getElementById('codeSuccess').style.display='none';
-  const btn=document.querySelector('.code-btn');
-  if(btn){btn.disabled=false;btn.textContent='✓ تحقق';}
-}
+function closeCodeOv(){document.getElementById('codeOv').classList.remove('open');document.body.style.overflow='';}
 
 function selectMethod(method){
   _selectedMethod=method;
@@ -2206,12 +2171,6 @@ async function submitOrder(){
     const orderData=await orderResp.json();
     if(!orderData.ok) throw new Error(orderData.error||'فشل في إنشاء الطلب');
     _currentOrderId=orderData.order_id;
-    // حفظ الطلب في localStorage للاسترجاع عند العودة
-    localStorage.setItem('mp_order', JSON.stringify({
-      order_id: _currentOrderId,
-      student_name: name,
-      created_at: Date.now()
-    }));
     const fd=new FormData(); fd.append('receipt',_receiptFile);
     const uploadResp=await fetch('/orders/'+_currentOrderId+'/receipt',{method:'POST',body:fd});
     const uploadData=await uploadResp.json();
@@ -2237,13 +2196,7 @@ async function redeemCode(){
     const resp=await fetch('/redeem',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code})});
     const data=await resp.json();
     if(!data.ok) throw new Error(data.error||'كود غير صحيح');
-    localStorage.removeItem('mp_order');
-    localStorage.removeItem('mp_v4');
-    const successEl=document.getElementById('codeSuccess');
-    successEl.style.display='block';
-    successEl.textContent='✅ جاري تحميل ملفك...';
-    btn.textContent='✅ تم';
-    // تحميل الملف
+    document.getElementById('codeSuccess').style.display='block';
     const raw=atob(data.data), bytes=new Uint8Array(raw.length);
     for(let i=0;i<raw.length;i++) bytes[i]=raw.charCodeAt(i);
     const blob=new Blob([bytes],{type:'application/vnd.openxmlformats-officedocument.presentationml.presentation'});
@@ -2251,8 +2204,7 @@ async function redeemCode(){
     const a=document.createElement('a'); a.href=url; a.download=data.filename||'mathkarati.pptx';
     document.body.appendChild(a); a.click();
     setTimeout(()=>{URL.revokeObjectURL(url);a.remove();},5000);
-    successEl.textContent='✅ تم تحميل ملفك بنجاح! تحقق من مجلد التنزيلات.';
-    setTimeout(()=>closeCodeOv(),3500);
+    setTimeout(()=>closeCodeOv(),2500);
   }catch(e){
     errEl.style.display='block'; errEl.textContent='❌ '+e.message;
     btn.disabled=false; btn.textContent='✓ تحقق';
@@ -2289,34 +2241,6 @@ const sl=ms=>new Promise(r=>setTimeout(r,ms));
 
   // Load draft
   loadDraft();
-
-  // ══ فحص طلب معلق من جلسة سابقة ══════════════════
-  (function checkPendingOrder(){
-    const saved = localStorage.getItem('mp_order');
-    if(!saved) return;
-    try{
-      const o = JSON.parse(saved);
-      if(!o.order_id) return;
-      // عرض بانر "لديك طلب معلق"
-      setTimeout(()=>{
-        const main = document.querySelector('.main');
-        if(!main) return;
-        const pb = document.createElement('div');
-        pb.id = 'pendingOrderBanner';
-        pb.className = 'pending-banner';
-        pb.innerHTML = `
-          <h3>🕐 لديك طلب دفع معلق</h3>
-          <p>أرسلت وصل الدفع مسبقاً — في انتظار موافقة الإدارة</p>
-          <div class="pb-order">رقم الطلب: <strong>${o.order_id}</strong></div>
-          <div class="pb-btns">
-            <button class="pb-code-btn" onclick="openCodeOv()">🔑 لديّ كود — تحميل الآن</button>
-            <button class="pb-new-btn" onclick="if(confirm('حذف الطلب القديم وإنشاء عرض جديد؟')){localStorage.removeItem('mp_order');document.getElementById('pendingOrderBanner').remove()}">إنشاء عرض جديد</button>
-          </div>`;
-        main.prepend(pb);
-      }, 600);
-    }catch(e){ localStorage.removeItem('mp_order'); }
-  })();
-  // ══════════════════════════════════════════════════
 
   // Apply initial toggle states
   Object.keys(slideStates).forEach(k=>{
