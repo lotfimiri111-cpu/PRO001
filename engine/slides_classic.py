@@ -482,7 +482,7 @@ def make_methodology(prs, req: PresentationRequest, T: Theme):
     if req.tool:         fields.append(("أداة الدراسة", req.tool))
     if not fields: return slide
 
-    row_h = (CH - 0.18 * (len(fields) - 1)) / max(len(fields), 1)
+    row_h = min((CH - 0.18 * (len(fields) - 1)) / max(len(fields), 1), 2.8)
 
     for i, (lbl, val) in enumerate(fields[:4]):
         y = CY + i * (row_h + 0.18)

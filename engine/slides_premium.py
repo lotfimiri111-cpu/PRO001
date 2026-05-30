@@ -406,8 +406,8 @@ def make_objectives(prs, req: PresentationRequest, T: Theme):
         hdr = rrect(slide, x, CY, col_w, hh, T.accent_rgb, radius_pct=0)
         if hdr: multi_stop_gradient(hdr, [(0, T.accent2), (100, T.accent)], 0)
         txt(slide, lbl, x + 0.18, CY, col_w - 0.36, hh,
-            font=_FONT, size=13, bold=True,
-            color=T.text_dark_rgb, align=PP_ALIGN.CENTER, rtl=False, vcenter=True)
+            font=_FONT, size=14, bold=True,
+            color=T.text_dark_rgb, align=PP_ALIGN.CENTER, rtl=True, vcenter=True)
 
         ia = CH - hh - 0.14; n_items = min(len(items), 8); ig = 0.1
         ih = (ia - ig * (n_items - 1)) / n_items

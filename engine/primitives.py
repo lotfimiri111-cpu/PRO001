@@ -1044,40 +1044,34 @@ def cinematic_bg(slide, T, variant='split'):
     bg(slide, T.bg_rgb)
 
     if variant == 'split':
-        # Bold diagonal split
-        gradient_rect(slide, 0, 0, W, H, T.grad2, T.bg, angle=145)
-        gradient_rect(slide, W * 0.46, 0, W * 0.54, H, T.grad1, T.bg2, angle=90)
-        # Bright edge line at split
-        hl = rect(slide, W * 0.455, 0, 0.10, H, T.accent_rgb)
-        if hl: multi_stop_gradient(hl, [(0, T.bg), (40, T.accent2), (60, T.accent), (100, T.bg)], 90)
+        # Rich full-slide gradient — primary atmosphere
+        gradient_rect(slide, 0, 0, W, H, T.grad2, T.grad1, angle=140)
+        # Subtle secondary layer — top-right corner brightening
+        oval(slide, W * 0.55, -3.5, 12, 12, T.bg2_rgb, alpha=22)
+        # Bottom-left depth
+        oval(slide, -4, H - 6, 10, 10, T.bg_rgb, alpha=38)
 
     elif variant == 'diagonal':
         gradient_rect(slide, 0, 0, W, H, T.grad1, T.grad2, angle=135)
-        # Large diagonal accent shape
-        for i in range(4):
-            sh = slide.shapes.add_shape(4,  # freeform via triangle
-                cm(-2 + i * 1.2), cm(-2), cm(W * 0.62 - i * 1.2), cm(H + 4))
-            sh.fill.solid()
-            sh.fill.fore_color.rgb = T.accent_rgb
-            sh.line.fill.background()
-            set_solid_alpha(sh, max(3, 12 - i * 3))
+        oval(slide, W * 0.60, -2, 9, 9, T.accent_rgb, alpha=5)
+        oval(slide, -2, H * 0.55, 8, 8, T.bg2_rgb, alpha=20)
 
     elif variant == 'radial':
         gradient_rect(slide, 0, 0, W, H, T.grad2, T.grad1, angle=0)
-        # Concentric oval glows
-        for r, a in [(34, 5), (26, 8), (20, 11), (15, 14), (10, 10)]:
+        # Subtle concentric glows — smaller and less opaque
+        for r, a in [(22, 4), (17, 6), (13, 8), (9, 7), (6, 6)]:
             oval(slide, W / 2 - r / 2, H / 2 - r / 2 * 0.75, r, r * 0.75,
                  T.accent_rgb, alpha=a)
 
     elif variant == 'vignette':
         gradient_rect(slide, 0, 0, W, H, T.grad2, T.grad1, angle=135)
-        # Corner vignettes
-        for bx, by in [(- 5, -5), (W - 8, -5), (-5, H - 8), (W - 8, H - 8)]:
-            oval(slide, bx, by, 13, 13, T.bg_rgb, alpha=42)
+        # Softer corner vignettes
+        for bx, by in [(-4, -4), (W - 7, -4), (-4, H - 7), (W - 7, H - 7)]:
+            oval(slide, bx, by, 11, 11, T.bg_rgb, alpha=32)
 
-    # Subtle dot grid (premium texture)
-    decorative_dots(slide, 1.0, H - 5.5, 8, 3, 0.12, 0.38, T.accent_rgb, alpha=7)
-    decorative_dots(slide, W - 6.5, 1.0, 6, 4, 0.11, 0.32, T.accent_rgb, alpha=6)
+    # Very subtle dot texture
+    decorative_dots(slide, 1.0, H - 4.8, 7, 2, 0.10, 0.34, T.accent_rgb, alpha=5)
+    decorative_dots(slide, W - 5.5, 1.2, 5, 3, 0.09, 0.28, T.accent_rgb, alpha=4)
 
 
 def hero_stat(slide, x, y, w, h, T, value: str, label: str, unit='',
@@ -1361,92 +1355,127 @@ def cinematic_cover(slide, T, req, font="Cairo"):
         year_str   = ''
         title_clean = req.title_ar
 
-    # ── Central title zone ──────────────────────────────────────────
+    # ── Dynamic layout: title height depends on info rows ──────────
+    rows_preview = [1]  # student always
+    if req.supervisor:     rows_preview.append(1)
+    if req.co_supervisor:  rows_preview.append(1)
+    if req.specialization: rows_preview.append(1)
+    n_info_rows = len(rows_preview)
+
+    # More info rows → taller info strip → smaller title zone
+    ROW_H   = 1.45        # fixed row height (cm)
+    GAP_ROW = 0.10
+    INFO_PAD = 0.36       # top+bottom padding inside info card
+    info_needed = ROW_H * n_info_rows + GAP_ROW * (n_info_rows - 1) + INFO_PAD
+    info_needed  = max(2.0, min(info_needed, 4.5))
+
     tz_x = W * 0.04; tz_w = W * 0.92
-    tz_y = 0.80; tz_h = H * 0.56
-    has_year = bool(year_str)
-    title_text_h = tz_h * (0.58 if has_year else 0.72)
+    tz_y = 0.72
+    # Total available below top bar
+    avail = H - tz_y - 0.22
+    # info strip takes what it needs, title zone takes the rest
+    info_strip_h = info_needed
+    gap_between  = 0.18
+    tz_h = avail - info_strip_h - gap_between
+    tz_h = max(4.0, tz_h)    # never collapse below 4 cm
+
+    has_en       = bool(req.title_en)
+    title_text_h = tz_h * (0.52 if has_year else 0.68)
 
     # Outer glow backdrop
-    og = rrect(slide, tz_x - 0.18, tz_y - 0.18, tz_w + 0.36, tz_h + 0.36, T.accent_rgb, radius_pct=16)
-    if og: set_solid_alpha(og, 12)
+    og = rrect(slide, tz_x - 0.16, tz_y - 0.16, tz_w + 0.32, tz_h + 0.32, T.accent_rgb, radius_pct=16)
+    if og: set_solid_alpha(og, 11)
 
     # Main title card
     tc = rrect(slide, tz_x, tz_y, tz_w, tz_h, T.card_rgb, radius_pct=14)
     if tc:
         multi_stop_gradient(tc, [(0, T.card), (55, T.bg2), (100, T.bg)], 140)
-        shadow(tc, blur=34, dist=10, alpha=0.56)
+        shadow(tc, blur=30, dist=9, alpha=0.54)
 
     # Accent stripe top
-    ct = rrect(slide, tz_x, tz_y, tz_w, 0.36, T.accent_rgb, radius_pct=0)
+    ct = rrect(slide, tz_x, tz_y, tz_w, 0.34, T.accent_rgb, radius_pct=0)
     if ct:
         multi_stop_gradient(ct, [(0, T.bg), (30, T.accent2), (50, T.accent),
                                   (70, T.accent2), (100, T.bg)], 0)
-        glow(ct, T.accent.lstrip('#'), radius=18, alpha=0.40)
+        glow(ct, T.accent.lstrip('#'), radius=16, alpha=0.38)
 
-    # RTL anchor bar on RIGHT
-    vline(slide, tz_x + tz_w - 0.28, tz_y + 0.36, tz_h - 0.36, T.accent_rgb, thickness=0.28)
+    # RTL anchor bar — RIGHT edge
+    vline(slide, tz_x + tz_w - 0.26, tz_y + 0.34, tz_h - 0.34, T.accent_rgb, thickness=0.26)
 
     # Title text — smart sizing
-    ts = _smart_font_size(title_clean, 24, 14, 30, tz_w - 1.2, title_text_h)
-    txt(slide, title_clean, tz_x + 0.60, tz_y + 0.42, tz_w - 1.20, title_text_h,
+    ts = _smart_font_size(title_clean, 24, 14, 30, tz_w - 1.1, title_text_h)
+    txt(slide, title_clean, tz_x + 0.55, tz_y + 0.42, tz_w - 1.10, title_text_h,
         font=font, size=ts, bold=True,
         color=T.text_light_rgb, align=PP_ALIGN.CENTER,
         rtl=True, vcenter=True, line_spacing=1.22)
 
-    if req.title_en:
-        en_y = tz_y + title_text_h + 0.32
-        en_h = tz_h - title_text_h - 0.40
+    if has_en and req.title_en:
+        en_y = tz_y + title_text_h + 0.28
+        en_h = max(0.60, tz_h - title_text_h - (0.52 if has_year else 0.38))
         txt(slide, req.title_en, tz_x + 0.80, en_y, tz_w - 1.60, en_h,
-            font="Calibri", size=11, bold=False, italic=True,
+            font="Calibri", size=10.5, bold=False, italic=True,
             color=T.muted_rgb, align=PP_ALIGN.CENTER, rtl=False, vcenter=True)
 
     # Year badge
     if has_year:
-        yr_y = tz_y + tz_h * 0.80; yr_h = tz_h * 0.12
-        yr_cw = tz_w * 0.38; yr_cx = tz_x + (tz_w - yr_cw) / 2
+        yr_y = tz_y + tz_h * 0.82; yr_h = max(0.58, tz_h * 0.11)
+        yr_cw = tz_w * 0.36; yr_cx = tz_x + (tz_w - yr_cw) / 2
         yb = rrect(slide, yr_cx, yr_y, yr_cw, yr_h, T.accent_rgb, radius_pct=50)
-        if yb:
-            set_solid_alpha(yb, 22)
+        if yb: set_solid_alpha(yb, 22)
         hline(slide, yr_cx + yr_cw * 0.08, yr_y, yr_cw * 0.84, T.accent_rgb, thickness=0.035)
         hline(slide, yr_cx + yr_cw * 0.08, yr_y + yr_h, yr_cw * 0.84, T.accent_rgb, thickness=0.035)
         txt(slide, f'( {year_str} )', yr_cx, yr_y, yr_cw, yr_h,
-            font=font, size=13, bold=False, italic=True,
+            font=font, size=12.5, bold=False, italic=True,
             color=T.accent_rgb, align=PP_ALIGN.CENTER, rtl=False, vcenter=True)
 
     # ── Info strip below title ──────────────────────────────────────
-    info_y = tz_y + tz_h + 0.20
-    info_h = H - info_y - 0.18
-    ic = rrect(slide, tz_x, info_y, tz_w, info_h, T.card_rgb, radius_pct=11)
+    info_y = tz_y + tz_h + gap_between
+    ic = rrect(slide, tz_x, info_y, tz_w, info_strip_h, T.card_rgb, radius_pct=11)
     if ic:
         multi_stop_gradient(ic, [(0, T.bg2), (100, T.card)], 0)
         shadow(ic, blur=14, dist=4, alpha=0.30)
+
+    # Right accent bar
+    vline(slide, tz_x + tz_w - 0.18, info_y, info_strip_h, T.accent_rgb, thickness=0.18)
 
     rows = [("الطالب", req.student_name)]
     if req.supervisor:     rows.append(("المشرف", req.supervisor))
     if req.co_supervisor:  rows.append(("المشرف المساعد", req.co_supervisor))
     if req.specialization: rows.append(("التخصص", req.specialization))
 
-    rh = info_h / max(len(rows), 1)
-    lbl_w = 4.6
+    n_rows = len(rows)
+    rh      = ROW_H
+    gap     = GAP_ROW
+    # Vertically center the block
+    block_h   = rh * n_rows + gap * (n_rows - 1)
+    row_start = info_y + (info_strip_h - block_h) / 2
+
+    # Fixed column layout
+    lbl_w = 4.4
+    lbl_x = tz_x + tz_w - lbl_w - 0.30
+    div_x = lbl_x - 0.20
+    val_x = tz_x + 0.30
+    val_w = div_x - val_x - 0.08
 
     for i, (lbl, val) in enumerate(rows):
-        y2 = info_y + i * rh
-        if i % 2 == 0:
-            rb = rrect(slide, tz_x + 0.18, y2 + 0.04, tz_w - 0.36, rh - 0.08, T.bg_rgb, radius_pct=6)
-            if rb: set_solid_alpha(rb, 44)
+        y2 = row_start + i * (rh + gap)
 
-        # RTL label on RIGHT
-        lbl_x = tz_x + tz_w - lbl_w - 0.28
-        val_x = tz_x + 0.38
-        val_w = tz_w - lbl_w - 0.80
+        # Alternating row tint
+        rb_clr = T.bg_rgb if i % 2 == 0 else T.bg2_rgb
+        rb = rrect(slide, tz_x + 0.16, y2 + 0.04, tz_w - 0.50, rh - 0.08, rb_clr, radius_pct=7)
+        if rb: set_solid_alpha(rb, 50)
 
+        # Label — fixed font size
         txt(slide, f"{lbl} :", lbl_x, y2, lbl_w, rh,
-            font=font, size=max(13, min(15, rh * 8.5)), bold=True,
+            font=font, size=13.5, bold=True,
             color=T.accent_rgb, align=PP_ALIGN.RIGHT, rtl=True, vcenter=True)
-        vline(slide, lbl_x - 0.18, y2 + rh * 0.12, rh * 0.76, T.muted_rgb, thickness=0.045)
+
+        # Vertical divider
+        vline(slide, div_x, y2 + rh * 0.15, rh * 0.70, T.muted_rgb, thickness=0.045)
+
+        # Value — right-aligned RTL
         txt(slide, val, val_x, y2, val_w, rh,
-            font=font, size=max(14, min(16, rh * 10)), bold=False,
+            font=font, size=14.5, bold=False,
             color=T.text_light_rgb, align=PP_ALIGN.RIGHT, rtl=True, vcenter=True)
 
     # Bottom bar
