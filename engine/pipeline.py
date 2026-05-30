@@ -28,12 +28,14 @@ from core.themes import get_theme
 import engine.slides as _slides_canva
 import engine.slides_premium as _slides_premium
 import engine.slides_classic as _slides_classic
+import engine.slides_ultra as _slides_ultra
 
 # خريطة المحركات
 _ENGINES = {
     "canva":   _slides_canva,
     "premium": _slides_premium,
     "classic": _slides_classic,
+    "ultra":   _slides_ultra,
 }
 
 def set_font(font_name: str):

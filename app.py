@@ -182,11 +182,11 @@ def generate():
     pptx_path = STORAGE_DIR / "pptx" / f"{presentation_id}.pptx"
     pptx_path.write_bytes(result.data)
 
-    # ── توليد المعاينة بشكل متزامن وإرسال الشرائح مباشرة ────────────────────
-    preview_token, preview_slides = generate_preview_sync(presentation_id, str(pptx_path))
+    # ── توليد المعاينة في الخلفية (async) لتجنب timeout على Render ───────────
+    preview_token = generate_preview_async(presentation_id, str(pptx_path))
 
     elapsed = time.monotonic() - t0
-    log.info(f"Generated: id={presentation_id} slides={result.slide_count} preview={len(preview_slides)} elapsed={elapsed:.2f}s")
+    log.info(f"Generated: id={presentation_id} slides={result.slide_count} elapsed={elapsed:.2f}s")
 
     return jsonify({
         "ok": True,
@@ -200,8 +200,8 @@ def generate():
         "student_name": req.student_name,
         "title_ar": req.title_ar,
         "degree": raw.get("degree", raw.get("level", "licence")),
-        "preview_slides": preview_slides,
-        "preview_count": len(preview_slides),
+        "preview_slides": [],
+        "preview_count": result.slide_count,
     })
 
 
@@ -284,6 +284,12 @@ def create_order_route():
 
     if not pid or not student_name or not payment_method:
         return jsonify({"error": "بيانات ناقصة"}), 400
+    if not re.match(r'^[0-9a-f\-]{36}$', pid):
+        return jsonify({"error": "معرف العرض غير صالح"}), 400
+    # تحقق أن ملف PPTX موجود فعلاً
+    pptx_check = STORAGE_DIR / "pptx" / f"{pid}.pptx"
+    if not pptx_check.exists():
+        return jsonify({"error": "العرض غير موجود أو منتهي الصلاحية"}), 404
     if payment_method not in ("ccp", "baridimob"):
         return jsonify({"error": "طريقة دفع غير صالحة"}), 400
 
@@ -332,118 +338,6 @@ def upload_receipt(order_id):
     return jsonify({"ok": True, "message": "تم رفع الوصل بنجاح، سيتم مراجعته خلال 24 ساعة"})
 
 
-@app.route("/preview-slide/<presentation_id>", methods=["GET"])
-def download_preview_slide(presentation_id):
-    """
-    يُرجع الشريحة الأولى كملف PPTX صالح للقراءة.
-    الطريقة: نسخ الملف الأصلي كاملاً ثم حذف الشرائح 2..N من الـ ZIP مباشرة،
-    مع تحديث presentation.xml و [Content_Types].xml لتعكس شريحة واحدة فقط.
-    هذا يضمن أن كل الـ relationships (صور، خطوط، themes) تبقى سليمة.
-    """
-    if not re.match(r'^[0-9a-f\-]{36}$', presentation_id):
-        return jsonify({"error": "معرف غير صالح"}), 400
-
-    pptx_path = STORAGE_DIR / "pptx" / f"{presentation_id}.pptx"
-    if not pptx_path.exists():
-        return jsonify({"error": "العرض غير موجود أو انتهت صلاحيته"}), 404
-
-    try:
-        import zipfile as _zf
-        import io as _io
-        from lxml import etree as _et
-
-        src_data = pptx_path.read_bytes()
-
-        # ── اقرأ الملف الأصلي ──────────────────────────────────────────
-        with _zf.ZipFile(_io.BytesIO(src_data)) as zin:
-            all_names = zin.namelist()
-            all_files = {n: zin.read(n) for n in all_names}
-
-        # ── اكتشف أسماء الشرائح المرتبة ────────────────────────────────
-        import re as _re
-        slide_names = sorted(
-            [n for n in all_names if _re.match(r'ppt/slides/slide\d+\.xml$', n)],
-            key=lambda x: int(_re.search(r'\d+', x.split('/')[-1]).group())
-        )
-        # الشرائح التي سنحذفها (كل شيء ما عدا الأولى)
-        slides_to_remove = set(slide_names[1:])
-        # rels المقابلة
-        def _rels_path(slide_path):
-            parts = slide_path.rsplit('/', 1)
-            return parts[0] + '/_rels/' + parts[1] + '.rels'
-        rels_to_remove = {_rels_path(s) for s in slides_to_remove}
-        to_remove = slides_to_remove | rels_to_remove
-
-        # ── أنشئ الـ ZIP الجديد بدون الشرائح المحذوفة ──────────────────
-        out_buf = _io.BytesIO()
-        with _zf.ZipFile(out_buf, 'w', _zf.ZIP_DEFLATED) as zout:
-            for name, data in all_files.items():
-                if name in to_remove:
-                    continue
-
-                if name == 'ppt/presentation.xml':
-                    # حذف مراجع الشرائح 2..N من sldIdLst
-                    root = _et.fromstring(data)
-                    ns = 'http://schemas.openxmlformats.org/presentationml/2006/main'
-                    sldIdLst = root.find(f'{{{ns}}}sldIdLst')
-                    if sldIdLst is not None:
-                        children = list(sldIdLst)
-                        # احتفظ فقط بالأولى
-                        for child in children[1:]:
-                            sldIdLst.remove(child)
-                    data = _et.tostring(root, xml_declaration=True,
-                                        encoding='UTF-8', standalone=True)
-
-                elif name == '[Content_Types].xml':
-                    # حذف Override للشرائح المحذوفة
-                    root = _et.fromstring(data)
-                    ct_ns = 'http://schemas.openxmlformats.org/package/2006/content-types'
-                    for child in list(root):
-                        part_name = child.get('PartName', '')
-                        # /ppt/slides/slideN.xml → ppt/slides/slideN.xml
-                        normalized = part_name.lstrip('/')
-                        if normalized in to_remove:
-                            root.remove(child)
-                    data = _et.tostring(root, xml_declaration=True,
-                                        encoding='UTF-8', standalone=True)
-
-                elif name == 'ppt/_rels/presentation.xml.rels':
-                    # حذف relationships للشرائح المحذوفة
-                    root = _et.fromstring(data)
-                    rel_ns = 'http://schemas.openxmlformats.org/package/2006/relationships'
-                    slide_ct = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide'
-                    kept = 0
-                    for child in list(root):
-                        if child.get('Type') == slide_ct:
-                            target = child.get('Target', '')
-                            # Target بصيغة slides/slideN.xml
-                            full = 'ppt/' + target
-                            if full in slides_to_remove:
-                                root.remove(child)
-                                continue
-                            kept += 1
-                    data = _et.tostring(root, xml_declaration=True,
-                                        encoding='UTF-8', standalone=True)
-
-                zout.writestr(name, data)
-
-        preview_data = out_buf.getvalue()
-        import base64 as _b64
-        b64 = _b64.b64encode(preview_data).decode('ascii')
-        log.info(f"Preview PPTX served: {presentation_id} "
-                 f"({len(preview_data)//1024}KB, 1 slide)")
-
-        return jsonify({
-            "ok": True,
-            "data": b64,
-            "filename": "preview-mathkarati.pptx",
-            "size": len(preview_data),
-        })
-    except Exception as e:
-        log.error(f"Preview slide export failed: {e}", exc_info=True)
-        return jsonify({"error": "فشل تصدير المعاينة"}), 500
-
-
 @app.route("/redeem", methods=["POST"])
 def redeem_by_code():
     """بعد الدفع فقط — يُرجع ملف PPTX الحقيقي"""
@@ -471,13 +365,25 @@ def redeem_by_code():
 
 
 # ── Admin API ─────────────────────────────────────────────────────────────────
+_login_attempts: dict = {}  # ip -> (count, first_time)
+
 @app.route("/admin/login", methods=["POST"])
 def admin_login_route():
+    import time as _time
+    ip = _get_ip()
+    now = _time.time()
+    attempts, first = _login_attempts.get(ip, (0, now))
+    if now - first > 900:  # reset after 15 min
+        attempts, first = 0, now
+    if attempts >= 8:
+        return jsonify({"error": "محاولات كثيرة، انتظر 15 دقيقة"}), 429
     d = request.get_json(force=True, silent=True) or {}
     password = d.get("password", "")
     token = admin_login(password, _get_ip())
     if not token:
+        _login_attempts[ip] = (attempts + 1, first)
         return jsonify({"error": "كلمة المرور غير صحيحة"}), 401
+    _login_attempts.pop(ip, None)  # clear on success
     resp = jsonify({"ok": True, "token": token})
     resp.set_cookie("admin_token", token, httponly=True, samesite="Strict", max_age=8 * 3600)
     return resp
