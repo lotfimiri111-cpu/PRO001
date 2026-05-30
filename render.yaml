@@ -1,57 +1,24 @@
-# ════════════════════════════════════════════════════════════════════
-# مذكرتي Pro — Render.com Production Config v1.0.0
-# ════════════════════════════════════════════════════════════════════
 services:
   - type: web
     name: mathkarati-pro
     env: python
-    region: frankfurt
-    plan: starter
+    plan: free
     buildCommand: chmod +x build.sh && bash build.sh
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --threads 2 --timeout 180 --keep-alive 5 --access-logfile - --error-logfile -
-    healthCheckPath: /health
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --timeout 180 --keep-alive 5 --preload --access-logfile - --error-logfile -
+    healthCheckPath: /ping
     envVars:
       - key: PORT
-        value: "10000"
-
-      # ── REQUIRED — يجب تعيينها يدوياً في Render Dashboard ──────────
-      - key: ADMIN_PASSWORD_HASH
-        sync: false          # sha256 hex of your admin password
-
+        value: 10000
       - key: SECRET_KEY
         generateValue: true
-
-      # ── Payment info — عدّل هذه القيم قبل الإطلاق ──────────────────
-      - key: PRICE
-        value: "800 دج"
-
-      - key: CCP_NUM
-        sync: false          # مثال: 0012345678
-
-      - key: CCP_KEY
-        sync: false          # مثال: 67
-
-      - key: BARID_NUM
-        sync: false          # مثال: 0799123456
-
-      - key: PAYMENT_OWNER
-        sync: false          # الاسم كما يظهر في وصل الدفع
-
-      # ── Storage paths ────────────────────────────────────────────────
+      - key: ADMIN_PASSWORD_HASH
+        sync: false
+        comment: "sha256 of your admin password — generate: echo -n 'yourpassword' | sha256sum"
       - key: STORAGE_DIR
         value: /opt/render/project/src/storage
-
       - key: DB_PATH
         value: /opt/render/project/src/mathkarati_payments.db
-
-      # ── Optional: Telegram notifications ────────────────────────────
-      - key: TELEGRAM_BOT_TOKEN
-        sync: false
-
-      - key: TELEGRAM_CHAT_ID
-        sync: false
-
-    disk:
-      name: mathkarati-storage
-      mountPath: /opt/render/project/src/storage
-      sizeGB: 1
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: PYTHONDONTWRITEBYTECODE
+        value: "1"

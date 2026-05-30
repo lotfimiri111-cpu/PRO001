@@ -949,7 +949,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <div class="sp-foot">
       <div class="sp-info">
         <strong>✅ تم إنشاء عرضك بنجاح!</strong><br>
-        للحصول على الملف الكامل القابل للتعديل — <strong id="spPrice">800 دج فقط</strong>
+        للحصول على الملف الكامل القابل للتعديل — <strong>800 دج فقط</strong>
       </div>
       <div class="sp-btns">
         <button class="sp-btn-cancel" onclick="closeSlidePrev()">← تعديل</button>
@@ -2099,10 +2099,10 @@ function _showResultBanner(){
       <div class="pl-icon">✅</div>
       <div class="pl-text">
         <h4>العرض جاهز!</h4>
-        <p><span id="plPrice">أدِّ 800 دج للحصول على ملف PPTX الكامل القابل للتعديل</span></p>
+        <p>أدِّ 800 دج للحصول على ملف PPTX الكامل القابل للتعديل</p>
       </div>
       <div class="pl-actions">
-        <button class="pl-pay-btn" onclick="openPayOv()">💳 اشتري الآن — <span class="btn-price">800 دج</span></button>
+        <button class="pl-pay-btn" onclick="openPayOv()">💳 اشتري الآن — 800 دج</button>
         <button class="pl-code-btn" onclick="openCodeOv()">🔑 عندي كود</button>
       </div>
     </div>
@@ -2124,15 +2124,8 @@ function showEnginePanel(name, btn) {
 }
 
 // ══ PAYMENT OVERLAY ══
-// ── Payment config — injected from server via /config endpoint ──
-const _CFG = window.__MP_CONFIG__ || {};
-const _PRICE  = _CFG.price  || '800 دج';
-const _CCP_NUM  = _CFG.ccp_num  || '000 12345678';
-const _CCP_KEY  = _CFG.ccp_key  || '67';
-const _BARID_NUM = _CFG.barid_num || '0799 000 000';
-const _OWNER    = _CFG.owner    || 'مذكرتي Pro';
-const CCP_INFO=`<div class="pi-row"><span class="pi-label">رقم الحساب CCP</span><span class="pi-val">${_CCP_NUM}</span></div><div class="pi-row"><span class="pi-label">المفتاح / Clé</span><span class="pi-val">${_CCP_KEY}</span></div><div class="pi-row"><span class="pi-label">اسم المستفيد</span><span class="pi-val">${_OWNER}</span></div><div class="pi-row"><span class="pi-label">المبلغ</span><span class="pi-val">${_PRICE}</span></div>`;
-const BARID_INFO=`<div class="pi-row"><span class="pi-label">رقم BaridiMob</span><span class="pi-val">${_BARID_NUM}</span></div><div class="pi-row"><span class="pi-label">اسم المستفيد</span><span class="pi-val">${_OWNER}</span></div><div class="pi-row"><span class="pi-label">المبلغ</span><span class="pi-val">${_PRICE}</span></div>`;
+const CCP_INFO=`<div class="pi-row"><span class="pi-label">رقم الحساب CCP</span><span class="pi-val">000 12345678</span></div><div class="pi-row"><span class="pi-label">المفتاح / Clé</span><span class="pi-val">67</span></div><div class="pi-row"><span class="pi-label">اسم المستفيد</span><span class="pi-val">مذكرتي Pro</span></div><div class="pi-row"><span class="pi-label">المبلغ</span><span class="pi-val">800 دج</span></div>`;
+const BARID_INFO=`<div class="pi-row"><span class="pi-label">رقم BaridiMob</span><span class="pi-val">0799 000 000</span></div><div class="pi-row"><span class="pi-label">اسم المستفيد</span><span class="pi-val">مذكرتي Pro</span></div><div class="pi-row"><span class="pi-label">المبلغ</span><span class="pi-val">800 دج</span></div>`;
 
 function openPayOv(){
   if(!_currentPresId){alert('يجب إنشاء العرض أولاً');return;}

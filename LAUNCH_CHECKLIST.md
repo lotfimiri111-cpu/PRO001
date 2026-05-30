@@ -1,85 +1,59 @@
-# 🚀 مذكرتي Pro — قائمة التحقق قبل الإطلاق التجاري
+# ✅ قائمة تدقيق الإطلاق — مذكرتي Pro v28
 
-## ✅ الخطوات المطلوبة على Render Dashboard
+## قبل الإطلاق
 
-### 1. متغيرات البيئة الإلزامية
+### الإعدادات الأمنية
+- [ ] تغيير `ADMIN_PASSWORD_HASH` في Render env vars
+- [ ] التحقق أن `SECRET_KEY` مُولَّد تلقائياً من Render
+- [ ] اختبار تسجيل دخول الأدمن بكلمة المرور الجديدة
 
-| المتغير | القيمة | الوصف |
-|---------|--------|-------|
-| `ADMIN_PASSWORD_HASH` | sha256 hex | كلمة سر لوحة الإدارة |
-| `SECRET_KEY` | auto-generated | مفتاح Flask السري |
-| `CCP_NUM` | رقم حسابك | رقم حساب CCP الخاص بك |
-| `CCP_KEY` | المفتاح | مفتاح CCP |
-| `BARID_NUM` | رقم BaridiMob | رقمك على BaridiMob |
-| `PAYMENT_OWNER` | اسمك | الاسم في وصل الدفع |
+### اختبار البنية
+- [ ] `GET /ping` → يرجع `pong`
+- [ ] `GET /health` → يرجع `{"status":"ok","font":"Cairo"}`
+  - ⚠️ إذا `"font":"Calibri"` فالخط لم يُنصَّب — راجع build logs
+- [ ] `POST /generate` بملف اختبار → يرجع `preview_slides`
+- [ ] `POST /orders` → يُنشئ طلب
+- [ ] رفع وصل على الطلب
+- [ ] لوحة الأدمن `/admin` تعمل
+- [ ] اعتماد طلب → توليد كود تحميل
+- [ ] `POST /redeem` بالكود → يرجع ملف PPTX
 
-### 2. متغيرات اختيارية
+### الأداء
+- [ ] أول طلب (cold start Render): < 30 ثانية
+- [ ] الطلبات اللاحقة (warm): < 2 ثانية
+- [ ] `GET /warmup` يُسرّع cold start — اضبطه في frontend
 
-| المتغير | الوصف |
-|---------|-------|
-| `PRICE` | السعر (default: 800 دج) |
-| `TELEGRAM_BOT_TOKEN` | إشعارات فورية بالطلبات |
-| `TELEGRAM_CHAT_ID` | معرف محادثة Telegram |
-
----
-
-## 🔐 كيف تحسب ADMIN_PASSWORD_HASH
-
-```bash
-echo -n "كلمة_السر_هنا" | sha256sum
+### الخط العربي
+للتحقق بعد النشر:
 ```
-
-أو في Python:
-```python
-import hashlib
-print(hashlib.sha256("كلمة_السر_هنا".encode()).hexdigest())
+GET /health
 ```
+يجب أن يظهر `"font": "Cairo"` وليس `"font": "Calibri"`.
+إذا كان Calibri: العروض تعمل لكن بخط أقل جمالاً على بعض أنظمة التشغيل.
 
----
+## بعد الإطلاق
 
-## 📱 إعداد Telegram Bot (اختياري لكن موصى به)
+### مراقبة أولى 24 ساعة
+- [ ] راقب Render logs: لا أخطاء 500
+- [ ] راقب أحجام ملفات storage/
+- [ ] اختبار flow كامل: توليد → معاينة → دفع → استلام
 
-1. افتح @BotFather في Telegram
-2. أرسل `/newbot` واتبع التعليمات
-3. احفظ الـ Token
-4. افتح المحادثة مع البوت
-5. اذهب إلى: `https://api.telegram.org/bot{TOKEN}/getUpdates`
-6. احفظ `chat_id`
+### حدود Render Free Tier
+- RAM: 512MB (المشروع يستخدم ~150MB عادةً)
+- وقت Spindown: 15 دقيقة خمول → cold start عند أول طلب
+- Bandwidth: 100GB/شهر
+- Storage: مؤقت — يُحذف عند إعادة النشر ⚠️
 
----
+### ⚠️ تحذير مهم: التخزين على Render Free
+ملفات storage/ (PPTX + صور الوصل + قاعدة البيانات) **تُحذف** عند كل نشر جديد.
+**الحل للإنتاج الحقيقي**: استخدم Render Disk أو Supabase Storage أو AWS S3.
 
-## 🌐 بعد الرفع على Render
+## معلومات الدفع (تُضبط من admin.html)
+- طريقة الدفع: CCP أو بريدي موب
+- السعر: 800 دج (قابل للتغيير من payment_models.py)
+- مدة صلاحية كود التحميل: 48 ساعة (افتراضي)
 
-1. تأكد أن `/health` يُرجع `{"status":"ok"}`
-2. جرّب توليد عرض تجريبي
-3. تأكد أن `/config` يُرجع بيانات الدفع الصحيحة
-4. اختبر لوحة الإدارة: `your-url/admin`
-5. جرّب رفع وصل تجريبي وقبوله
-
----
-
-## ⚠️ ملاحظات هامة
-
-- **Render Free Plan**: الـ storage يُمسح عند كل deploy — استخدم **Starter Plan** مع disk mount
-- الـ disk mount مُعيَّن في `render.yaml` على `/opt/render/project/src/storage`
-- النسخة الاحتياطية من DB: حمّلها بانتظام من `/admin`
-- وقت الاستجابة الأول قد يكون بطيئاً (cold start) — الـ `/warmup` endpoint يساعد
-
----
-
-## 📊 مراقبة الأداء
-
-- `/health` — حالة كاملة مع إحصائيات
-- `/admin` — لوحة الإدارة الكاملة
-- Render Logs — في Dashboard
-
----
-
-## 🔄 Rate Limits المُطبَّقة
-
-| Endpoint | الحد | النافذة |
-|----------|------|---------|
-| `/generate` | 5 طلبات | 60 ثانية |
-| `/orders` | 3 طلبات | 10 دقائق |
-| `/redeem` | 10 محاولات | ساعة |
+## جهات الاتصال في حالة المشاكل
+- Render Status: https://status.render.com
+- python-pptx Issues: https://github.com/python-openxml/python-pptx
 
